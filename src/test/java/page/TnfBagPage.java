@@ -11,9 +11,8 @@ public class TnfBagPage extends Page{
 
     @FindBy(xpath = "//div[container(@class,'item-detail-info-name item-name-js')]/h3/*[@id=\"254180537\"]")
     WebElement firstItem;
-
-    @FindBy(xpath = "//*[@id=\"checkout-shopcart-quantity-254180537\"]/option[3]\"]")
-    WebElement countOfFirstItem;
+    @FindBy(xpath = "")
+    WebElement Nime;
 
 
     public TnfBagPage (WebDriver driver){
@@ -24,10 +23,10 @@ public class TnfBagPage extends Page{
                 .until(ExpectedConditions.visibilityOf(firstItem))
                 .getText();
 }
-    public String getCountOfItems(){
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.visibilityOf(countOfFirstItem));
-        Select countSelect = new Select(countOfFirstItem);
-        return countSelect.getFirstSelectedOption().getText();
-    }
+public String getNameOfItem(){
+        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.visibilityOf(NameItem))
+                .getText();
+}
+    
 }

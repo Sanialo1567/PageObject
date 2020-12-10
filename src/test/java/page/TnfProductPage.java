@@ -9,9 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TnfProductPage extends Page {
 
-    private static String sizeTemplate = "size_6_%s";
-    private static String countTemplate = ".dk_options_inner > li:nth-child(%s)";
-
+    private static String sizeTemplate = "size_S_%s";//ужно поставить как-тоо nteger тобы размер не S был,а число 6 
+    
     @FindBy(id = "buttonAddToBag")
     WebElement addToCartButton;
 
@@ -20,6 +19,12 @@ public class TnfProductPage extends Page {
 
     @FindBy(xpath = "//button[@class='product-content-form-size-btn-label attr-box']")
     WebElement selectQuantity;
+
+   @FindBy(xpath = "")
+    WebElement addFavoriteButton;
+
+   @FindBy(xpath = "")
+    WebElement openFavoriteButton;
 
     public TnfProductPage(WebDriver driver){
         super(driver);
@@ -39,15 +44,6 @@ public class TnfProductPage extends Page {
         return this;
     }
 
-    public TnfProductPage setCountOfItems(String count) {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(selectQuantity))
-                .click();
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(countTemplate,count))
-                .click();
-        return this;
-    }
 
     public TnfBagPage openCart(){
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
@@ -57,5 +53,20 @@ public class TnfProductPage extends Page {
                 .click();
         return new TnfBagPage(driver);
     }
+public TnfBagPage addToFavorite(){
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(addFavoriteButton))
+                .click();
+        return this;
+    }
+public TnfBagPage openFavorite(){
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(jQueryAJAXCompleted());
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(openFavoriteButton))
+                .click();
+        return new TnfFavoritePage(driver);
+    }
+
 }
 

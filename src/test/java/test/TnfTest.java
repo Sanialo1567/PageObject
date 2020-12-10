@@ -37,17 +37,16 @@ public class TnfTest {
         }
 
         @Test
-        public void addToCartManyItemsTest(){
+        public void addToFavorite(){
             String countOfItems = new TnfHomePage(driver)
                     .openPage()
                     .goToProduct()
                     .setSize()
-                    .addToCart()
-                    .openCart()
-                    .setCountOfItems()
-                    .getCountOfItems();
+                    .addToFavorite()
+                    .openFavorite()
+                    .getNameOfItem();
 
-            Assert.assertEquals(countOfItems, "3");
+            Assert.assertEquals(ResultOfFavoriteItem, "Product is missing because you are not logged into your account");
         }
 
         @AfterAll
