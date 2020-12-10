@@ -20,10 +20,10 @@ public class TnfProductPage extends Page {
     @FindBy(xpath = "//button[@class='product-content-form-size-btn-label attr-box']")
     WebElement selectQuantity;
 
-   @FindBy(xpath = "")
+   @FindBy(xpath = "//*[@id="ecom-product-actions"]/div[1]/a[2]")
     WebElement addFavoriteButton;
 
-   @FindBy(xpath = "")
+   @FindBy(xpath = "//*[@id="master-container"]/div/div/header/div[1]/nav")
     WebElement openFavoriteButton;
 
     public TnfProductPage(WebDriver driver){

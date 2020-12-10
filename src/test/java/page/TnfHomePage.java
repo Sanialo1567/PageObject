@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TnfHomePage extends Page {
-    private static final String HOMEPAGE_URL = "https://www.thenorthface.com";
+    private static final String HOMEPAGE_URL = "https://www.thenorthface.com/shop/shoes-womens";
 
     @FindBy(xpath = "//*[@id=\"catalog-results\"]/div[3]/div[1]/figure/a/div")
     private WebElement addProductButton;
