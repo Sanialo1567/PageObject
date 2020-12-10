@@ -9,11 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TnfBagPage extends Page{
 
-    @FindBy(xpath = "//div[container(@class,'item-detail-info-name item-name-js')]/h3/*[@id=\"254180537\"]")
+    @FindBy(xpath = "//*[@id='body-container']/article/section/div[1]/section[2]/div[5]/aside[1]/div/div[2]/div[2]/div[1]/a/h3")
     WebElement firstItem;
-    @FindBy(xpath = "")
-    WebElement Nime;
-
 
     public TnfBagPage (WebDriver driver){
         super(driver);
@@ -22,11 +19,6 @@ public class TnfBagPage extends Page{
         return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.visibilityOf(firstItem))
                 .getText();
+    }
 }
-public String getNameOfItem(){
-        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.visibilityOf(NameItem))
-                .getText();
-}
-    
-}
+

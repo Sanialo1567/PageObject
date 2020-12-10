@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class TnfHomePage extends Page {
     private static final String HOMEPAGE_URL = "https://www.thenorthface.com/shop/shoes-womens";
 
-    @FindBy(xpath = "//*[@id=\"catalog-results\"]/div[3]/div[1]/figure/a/div")
+    @FindBy(xpath = "/html/body/div[2]/div/div/main/article/div[2]/section/div[1]/form/div/div[3]/div[1]/figure/a")
     private WebElement addProductButton;
 
     public TnfHomePage(WebDriver driver){
@@ -23,6 +23,7 @@ public class TnfHomePage extends Page {
                 .until(jQueryAJAXCompleted());
         return this;
     }
+
     public TnfProductPage goToProduct(){
         WebElement goToCartButton = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(addProductButton));
@@ -31,5 +32,4 @@ public class TnfHomePage extends Page {
         goToCartButton.click();
         return new TnfProductPage(driver);
     }
-
 }

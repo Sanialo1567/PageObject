@@ -18,41 +18,39 @@ public class TnfTest {
         driver = new ChromeDriver();
     }
 
-        @BeforeEach
-        public void clearCookies(){
-            //clear cookies
+    @BeforeEach
+    public void clearCookies(){ }
+
+    @Test
+    public void addToCartTest(){
+        String itemName = new TnfHomePage(driver)
+                .openPage()
+                .goToProduct()
+                .closePopUps()
+                .setSize()
+                .addToCart()
+                .openCart()
+                .getNameOfFirstItem();
+
+            Assert.assertEquals(itemName, "WOMEN’S BACK-TO-BERKELEY MID WP");
         }
 
-        @Test
-        public void addToCartTest(){
-            String itemName = new TnfHomePage(driver)
-                    .openPage()
-                    .goToProduct()
-                    .setSize()
-                    .addToCart()
-                    .openCart()
-                    .getNameOfFirstItem();
+    @Test
+    public void addToFavoriteTest(){
+        Boolean canAdd = new TnfHomePage(driver)
+                .openPage()
+                .goToProduct()
+                .setSize()
+                .addToFavorite()
+                .canAddToFavorite();
 
-            Assert.assertEquals(itemName, "Women’s Back-To-Berkeley Mid WP");
+        Assert.assertFalse(canAdd);
         }
 
-        @Test
-        public void addToFavorite(){
-            String countOfItems = new TnfHomePage(driver)
-                    .openPage()
-                    .goToProduct()
-                    .setSize()
-                    .addToFavorite()
-                    .openFavorite()
-                    .getNameOfItem();
-
-            Assert.assertEquals(ResultOfFavoriteItem, "Product is missing because you are not logged into your account");
-        }
-
-        @AfterAll
-        static void driverShutDown(){
-            driver.quit();
-            driver=null;
-        }
-
+    @AfterAll
+    static void driverShutDown(){
+        driver.quit();
+        driver=null;
     }
+
+}

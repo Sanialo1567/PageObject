@@ -3,38 +3,41 @@ package page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TnfProductPage extends Page {
+import java.util.function.ToIntFunction;
 
-    private static String sizeTemplate = "size_S_%s";//ужно поставить как-тоо nteger тобы размер не S был,а число 6 
+public class TnfProductPage extends Page {
     
     @FindBy(id = "buttonAddToBag")
     WebElement addToCartButton;
 
-    @FindBy(xpath = "//*[@id=\"checkout\"mini-cart-action button primary\"]")
+    @FindBy(xpath = "//*[@id='master-container']/div/header/div[2]/div/nav/ul/li[12]/a")
     WebElement openBagButton;
 
     @FindBy(xpath = "//button[@class='product-content-form-size-btn-label attr-box']")
     WebElement selectQuantity;
 
-   @FindBy(xpath = "//*[@id="ecom-product-actions"]/div[1]/a[2]")
+    @FindBy(xpath = "//*[@id='ecom-product-actions']/div[1]/a[2]")
     WebElement addFavoriteButton;
 
-   @FindBy(xpath = "//*[@id="master-container"]/div/div/header/div[1]/nav")
+    @FindBy(xpath = "//*[@id='master-container']/div/div/header/div[1]/nav")
     WebElement openFavoriteButton;
+
+    @FindBy(xpath = "//*[@id='product-attr-form']/section[2]/div[3]/div/button[3]")
+    private WebElement selectSizeButton;
+
+    @FindBy(xpath = "/html/body/div[3]/div/header/div[5]/div/div[3]/span/p")
+    private WebElement failedAddToFavoriteErrorMessage;
+
+    @FindBy(xpath = "/html/body/div[2]/div[2]/div/div/div/div[1]/div[1]")
+    private WebElement closeAdButton;
 
     public TnfProductPage(WebDriver driver){
         super(driver);
-    }
-
-    public TnfProductPage setSize(String size){
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(sizeTemplate,size))
-                .click();
-        return this;
     }
 
     public TnfProductPage addToCart(){
@@ -44,29 +47,39 @@ public class TnfProductPage extends Page {
         return this;
     }
 
-
     public TnfBagPage openCart(){
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(jQueryAJAXCompleted());
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(openBagButton))
-                .click();
+        openBagButton.click();
         return new TnfBagPage(driver);
     }
-public TnfBagPage addToFavorite(){
+
+    public TnfProductPage addToFavorite(){
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(addFavoriteButton))
+                .until(ExpectedConditions.visibilityOf(addFavoriteButton));
+        addFavoriteButton.click();
+        return this;
+    }
+
+    public Boolean canAddToFavorite(){
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.visibilityOf(failedAddToFavoriteErrorMessage));
+        return !(failedAddToFavoriteErrorMessage.isDisplayed());
+    }
+
+    public TnfProductPage setSize(){
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(selectSizeButton))
                 .click();
         return this;
     }
-public TnfBagPage openFavorite(){
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(jQueryAJAXCompleted());
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(openFavoriteButton))
-                .click();
-        return new TnfFavoritePage(driver);
-    }
 
+    public TnfProductPage closePopUps() {
+
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.visibilityOf(closeAdButton));
+        closeAdButton.click();
+        return this;
+    }
 }
 
