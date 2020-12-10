@@ -12,7 +12,7 @@ private static WebDriver driver;
 
 @BeforeAll
 static void BrowserSetup(){
-System.setProperty("webdriver.chrome.driver", "ВСТАВЬ СЮДА ПУТЬ");
+System.setProperty("webdriver.chrome.driver", "D://webdriver/chromedriver.exe");
 driver = new ChromeDriver();
 }
 
