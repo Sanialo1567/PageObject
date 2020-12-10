@@ -12,8 +12,9 @@ import page.TnfHomePage;
 public class TnfTest {
 
     private static WebDriver driver;
-
-    @BeforeAll
+ @BeforeAll
+    public void init() {
+    System.setProperty("webdriver.chrome.driver", "D://webdriver/chromedriver.exe");
     static void BrowserSetup(){
         driver = new ChromeDriver();
     }
